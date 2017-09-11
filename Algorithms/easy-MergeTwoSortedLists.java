@@ -23,6 +23,7 @@ public class MergeSortedList {
       return l1;
     }
     
+    // Apply Recursive Method, since we cannot go .next.next.next...
     ListNode merged;
     if (l1.val < l2.val) {
       merged = l1;
