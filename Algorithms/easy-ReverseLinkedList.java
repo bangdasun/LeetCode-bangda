@@ -19,14 +19,14 @@ public class ReverseLinkedList {
     ListNode curr = head;
     
     /*
-     * first store the current next to a temp (since we will change curr.next reference)
-     * then let current next point at current prev
-     * where current next should be pointed by current at previous, we now update, prev would point at current next
-     * update current (move forward to last node)
-     */
+     * the goal at each iteration is let curr -> prev
+     * therefore we need to store prev node beforehead
+     * we also need to store the next node before changing reference
+     * */
     while (curr != null) {
       ListNode temp = curr.next;
-      curr.next = prev;
+      curr.next = prev; // change reference: curr -> prev, not set prev to be current.next
+      // update, like i++ step
       prev = curr;
       curr = temp;
     }
