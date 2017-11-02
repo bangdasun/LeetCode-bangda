@@ -1,2 +1,2 @@
 # LeetCode-bangda
-LeetCode training
+Algorithms, Data Structures, Databases (SQL)
