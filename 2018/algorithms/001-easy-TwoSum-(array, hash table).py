@@ -11,16 +11,16 @@ class Solution:
         for i, n in enumerate(nums):
             diff = target - n
             if diff in dct.keys():
-				# index of diff
+                # index of diff
                 output.append(dct[diff])
 				
-				# index of n
+                # index of n
                 output.append(i)
 				
-				# assume there is only solution group
+                # assume there is only solution group
                 break
             
-			# in case there is collision
+            # in case there is collision
             dct[n] = i 
                 
         return output

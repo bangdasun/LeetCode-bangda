@@ -17,7 +17,7 @@ class Solution(object):
         fast = head
         
         while fast is not None:
-			# check if j.next exists
+            # check if j.next exists
             if fast.next is None:
                 break
 				

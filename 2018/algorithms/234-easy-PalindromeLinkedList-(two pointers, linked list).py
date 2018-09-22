@@ -26,7 +26,7 @@ class Solution(object):
             
             # move to next node
             node = curr
-			curr = head
+            curr = head
             
         return node
                 

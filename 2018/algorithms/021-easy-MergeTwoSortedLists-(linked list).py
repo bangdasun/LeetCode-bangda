@@ -12,9 +12,9 @@ class Solution:
         :rtype: ListNode
         """
         # merged list: head is None
-		merged = ListNode(None)
+        merged = ListNode(None)
 		
-		# tail Node
+        # tail Node
         temp = ListNode(None)
         merged = temp
             
