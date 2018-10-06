@@ -275,6 +275,12 @@ Sort two array first, then use two pointers, put the smaller one into output and
 
 Same as #349; hash table: iterate through one array and store the value count in a hash table, then iterate through another one, if the value is in the hash table, reduce the count by 1 and this value is in the intersect.
 
+#### 367. Valid Perfect Square (binary search)
+
+- My solution
+
+Binary search, find if there is a number in `[0, num // 2]` squared to be equal to `num`.
+
 #### 374. Guess Number Higher or Lower (binary search)
 
 - My solution
@@ -298,7 +304,66 @@ Use `set()` and `count()` if use Python, no hash table needed, just iterate thro
 
 Hash table, store the count of the letter, then iterate through the string, whenever find the letter has value to be 1 in the hash table, return the index. Finally return -1.
 
+#### 389. Find the Difference (hash table, bit manipulation)
 
+- My solution
+
+Wrong attempt: build a hash table based on `s`, then iterate through `t` to check if every letter is in the hash table. But it's possible that the extra letter is a duplicate letter in `s`.
+
+AC: same methods, but save the value of hash table as count, if letter in `t` also in hash table, check the count is larger than 0: if yes, reduce the count by 1, if no, then this is the extra letter.
+
+#### 409. Longest Palindrome (hash table)
+
+- My solution:
+
+Wrong attempt: build a hash table based on `s` with key to be letter and value to be the count, then iterate through the hash table, if the value is even, add it, else if the value is odd and larger than 1, reduce it by 1 and add it, else if the value is 1, remark it. Then finally if the "is there any 1" remark is `True`, add the length by 1. But this doesn't consider when there is only one odd number and it's larger than 1, corner case: `ccc`.
+
+AC: same method, but also add a remark: if there is a odd number larger than 1. Finally add length by 1 if either one of the remarks is `True`. 
+
+- Public solution:
+
+Hash table: build a hash table based on count, iterate through and add by `(value // 2) * 2` each time. Then if there is a odd number, and the length is still even, increase the length by 1. (This will happen when meet the first odd number, second one the length is odd not even).
+
+#### 557. Reverse Words in a String III (string)
+
+- My solution
+
+Split the string by space and put all words in the array, then reverse each word in the array, and concatenate them separated by space
+
+#### 581. Shortest Unsorted Continous Subarray (array)
+
+- My solution
+
+Sorting: make a copy of `nums` and sort it. Then compare two arrays using 2 loops, first loop is to mark the leftmost mis-match position, which is the start of the subarray; second loop is to mark the rightmost mist-match position, which is the end of the subarray. The length will be `end - start + 1`.
+
+- Public solution
+
+**TO BE CONTINUED**.
+
+
+#### 599. Minimum Index Sum of Two Lists (hash table)
+
+- My solution
+
+Hash table, build a hash table based on shorter list, key is the name and value is index, define `curr_min` as current min sum of index (initialized as sum of length), and output initialized as a empty list; then iterate through another list, if the value is in hash table keys, compare sum of index with `curr_min`, if it is smaller or equal to `curr_min`, append it to the output. Finally return the output.
+
+- Public solution
+
+No hash table: traverse over the various sum of index and determine if any such string exists in list 1 and list 2 such that the sum of its indices in the two lists equals sum (index could be negative, say it is invalid).
+
+Hash table: for every value in one list, search it in another list, if there is a match, store it into the hash table as key to be the sum of index and value to be the list of corresponding values.
+
+#### 643. Maximum Average Subarray I (array)
+
+- My solution (**NO AC SOLUTION**)
+
+Brute force: calculate the sum of the sliding window, and update the maximum if current maximum is larger than record maximum. But take too long to run long list.
+
+- Public solution
+
+Cumulative sum: create a `cumsum` array, then the difference of `i`th value and `i+k`th value of the array is exactly the sum of subarray in the raw array. The difference is initialized as `k`th value in the `cumsum` array. 
+
+Brute force (same as my sliding window): but use smarter method, just update the current maximum by add the difference of value to be removed and to be added.
 
 #### 657. Robot Return to Origin (string)
 
@@ -308,15 +373,68 @@ Move count: the left - right, up - down counts should be symmetric.
 
 Coordinates calculate: the final coordinates are same with initial coordinates.
 
+#### 674. Longest Continuous Increasing Subsequence (array)
+
+- My solution
+
+Except the zero-length array, the smallest return will be 1, so initialize `cnt` and `curr_max` as 1, then iterate through the array start at index 1, calculate the difference of values at current index and previous index, if the difference is greater than 0, increase the `cnt` by 1, else reset it as 1, finally update the `curr_max` to be `max(curr_max, cnt)`, and return it when iteration terminates.
+
+- Public solution
+
+Sliding window: every continuous increasing subarray is disjoint, mark the position when `nums[i - 1] >= nums[i]`, store `i` in variable `anchor`, record a candidate answer of `i - anchor + 1`.
+
+#### 680. Valid Palindrome II (string)
+
+- My solution (**NO AC SOLUTION**)
+
+Two pointers, go from head (`i`) and tail (`j`), if there is a mismatch, mark `delete_one` to be True, then move `i` or `j` based on checking `s[i + 1] == s[j]` or `s[i] == s[j - 1]`. But it's possible that both condition will satisfied, then no decision can be made.
+
+- Public solution
+
+Greedy algorithm: still begin with two pointers, if `s[i] != s[j]` then check whether `s[i + 1]` to `s[j]` or `s[i]` to `s[j - 1]` is palindrome, either one is palindrome then return True; else if `s[i] == s[j]`, update the pointers.
+
+#### 697. Degree of an Array (array)
+
+- My solution (**NO AC SOLUTION**)
+
+Find the degree of the array at first (use hash table), also save the value with frequency equal to degree, then for each value, find the leftmost and rightmost position in `nums`, find the minimum difference. But takes too long to run.
+
+- Public solution
+
+Two pointers (dictionary): define `slow` and `fast` hash table, `slow` is to record leftmost positions of all elements in array, `fast` is to record rightmost positions of all elements in array, then store the number and count in `dct` hash table. Next find the maximum value in `dct`, then for corresponding key (corresponding to key in `slow` and `fast`), calculate the minimum differences (`fast[k] - slow[k] + 1`).
+
+#### 709. To Lower Case (string)
+
+- My solution
+
+Hash table: build a hash table to map from upper case to lower case, then convert the string to list, iterate through the list and do the replacement if necessary, finally convert the list back to string.
+
 #### 771. Jewels and Stones (hash table)
 
 - My solution
 
-Hash table, store the count of letters in `S` in the hash table and add the count which the key is in `J`.
+Hash table: store the count of letters in `S` in the hash table and add the count which the key is in `J`.
+
+#### 804. Unique Morse Code Words (string)
+
+- My solution
+
+Hash table: build a map between letters and codes. Then for each letter in each word in the list, store the transformed codes in a list, finally count the number of unique transformed codes in the list.
+
+#### 905. Sort Array By Parity (array)
+
+- My solution
+
+Use two array to store even and odd numbers, then concatenate them together and output. This will use too much space.
+
+- Public solution 
+
+In-place: similar with the idea of quick sort, use two pointers `i` and `j` start from left and end, ideally the number at left of `i` are all even, and number at right of `j` are all odd; if `A[i]` is even, increase it, if `A[j]` is odd, decrease it; if `A[i]` is odd and `A[j]` is even, swap them. Terminate iteration when `i` meet with `j`.
 
 #### X. Tips and Notice
 
 - Initialize iterate variable if use `while` loop.
+- Always check the terminal condition of `while` loop.
 - Be careful when index the last element, `x[length(x)]` will be out of index.
 - Be careful for pop stack, need to check whether stack is empty.
 - Be careful for empty input, especially for array
@@ -324,3 +442,7 @@ Hash table, store the count of letters in `S` in the hash table and add the coun
 - Add `self.` before methods in class when use recursion in Python.
 - For linked list, must check itself or next is None or not.
 - Be careful for the condition in `while` loop.
+- Difference of the cumulative sum (of array) is the number itself. 
+- Be careful about variables defined in the loop, it is possible that the loop will not be executed, therefore will cause variable undefined error.
+
+
