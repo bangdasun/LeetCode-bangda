@@ -117,6 +117,16 @@ Try to iterate through from 0 to `int(x/2) + 1`, check whether `i*i` is larger o
 
 Binary search: check the middle point in the range of `[1, x//2]` and update the bound with middle value.
 
+#### 70. Climbing Stairs (dynamic programming)
+
+- My solution
+
+Dynamic programming: current solution is from previous solution: `S(n) = S(n - 1) + S(n - 2)`.
+
+- Public solution
+
+Recursion with memorization: **TO BE CONTINUED**.
+
 #### 125. Valid Palindrome (two pointers, string)
 
 - My solution
@@ -393,6 +403,16 @@ Two pointers, go from head (`i`) and tail (`j`), if there is a mismatch, mark `d
 
 Greedy algorithm: still begin with two pointers, if `s[i] != s[j]` then check whether `s[i + 1]` to `s[j]` or `s[i]` to `s[j - 1]` is palindrome, either one is palindrome then return True; else if `s[i] == s[j]`, update the pointers.
 
+#### 686. Repeated String Match (string)
+
+- My solution
+
+Brute force: check if `B` is in `A * k`, where `k` will be the output. The edge condition is `len(B)` is half of `len(A)`.
+
+- Public solution
+
+Ad-hoc: same with my idea. But calculate `q` then `len(B) <= len(A * q)`. `q = (len(B) - 1) // len(A) + 1`, and if the answer is not -1, then `B` must be in `A * q` or `A * (q + 1)`.
+
 #### 697. Degree of an Array (array)
 
 - My solution (**NO AC SOLUTION**)
@@ -415,11 +435,137 @@ Hash table: build a hash table to map from upper case to lower case, then conver
 
 Hash table: store the count of letters in `S` in the hash table and add the count which the key is in `J`.
 
+#### 796. Rotate String (string)
+
+- My solution
+
+Brute force: remove the first value and append it at end for `A`, check if it equals `B` in each iteration.
+
+- Public solution
+
+Simple check: check if `B` is the subset of `A + A`.
+
+Rolling hash: **TO BE CONTINUED**.
+
+KMP algorithm: **TO BE CONTINUED**.
+
 #### 804. Unique Morse Code Words (string)
 
 - My solution
 
 Hash table: build a map between letters and codes. Then for each letter in each word in the list, store the transformed codes in a list, finally count the number of unique transformed codes in the list.
+
+#### 821. Shortest Distance to a Character (array)
+
+- My solution
+
+Brute Force: first save the location of `C`. Then initialize a distance array with value to be the length of the array, iterate through this array, calculate the minimum distance to all location of `C` and save it as distance. Finally return the distance array.
+
+- Public solution
+
+Min array: for each index, find the distance to the next `C` going left and right, the distance is the minimum of these two values. When going left to right, save the last `C` location as `prev`, the distance is `i - prev`; when going right to left, save the last `C` location as `prev`, the distance is `prev - i`. Finally take the minimum of these two answers to create the final distance array.
+
+#### 830. Positions of Large Groups (array)
+
+- My solution
+
+Two pointers: `i` and `j` start at 0, keep increase `j` until `S[i] != S[j]`, then check the difference (length of the group) and `i` start at `j`. Corner case: `aaa` at end, here `j` will not move out of the last `a`, therefore need a extra check after the loop. 
+
+#### 832. Flipping an Image (array)
+
+- My solution
+
+Brute Force.
+
+#### 836. Rectangle Overlap (math)
+
+- My solution
+
+Check position: check the position of: upper right of rec 1 and lower left of rec 2, upper left of rec 1 and lower right of rec 2, lower right of rec 1 and upper left rec 2, lower left of rec 1 and upper right rec 2. The relation should be `and`, since once 1 condition is not satisfied, they will not overlap.
+
+- Public solution
+
+Check position: more precise solution.
+
+Check area: if overlap, there must be a rectangle where both dimensions are position: whether two line segments overlap. For example: if `min(rec1[2], rec2[2]) > max(rec1[0], rec2[0])`, there will be a horizontal overlap.
+
+#### 844. Backspace String Compare (two pointers, stack)
+
+- My solution
+
+Stack: create two empty stacks, iterate through two strings simultaneously, if there is a `#` and the stack is not empty, pop it; if not `#`, append it to the stack. When iterate terminate, it's possible that one string is not complete, then use the same step to finish scanning. Finally compare if two stacks are equal.
+
+- Public solution
+
+String builder: same as stack solution.
+
+Two pointers: **TO BE CONTINUED**.
+
+#### 849. Maximum Distance to Closest Person (array)
+
+- My solution (**NO AC SOLUTION**)
+
+Two array: use two array to store the leftmost position of 0's and rightmost position of 0's. Then the difference of two arrays will be the length of 0's part. But this cannot deal with lead 0's. Corner case is complicate to deal with.
+
+- Public solution
+
+Next array: Let `left[i]` to be the distance of seat `i` to the closest person sitting to left of `i`, same with `right[i]`. Then the distance to closest person when seating at `i` is `min(left[i], right[i])`. The `max(min(left[i], right[i]))` is the answer.
+
+Two Pointers: **TO BE CONTINUED**
+
+#### 852. Peak Index in a Mountain Array (array)
+
+- My solution
+
+Linear scan: the first position that `A[i] > A[i + 1]` is the answer.
+
+- Public solution
+
+Binary search: find the first position that `A[i] > A[i + 1]`.
+
+#### 867. Transpose Matrix (array)
+
+- My solution
+
+Use matrix transpose definition `A_T[j][i] = A[i][j]`.
+
+#### 876. Middle of the Linked List (linked list)
+
+- My solution
+
+Two pointers: same with #234. Use `slow` and `fast`, when `fast` is at the end, `slow` is exactly at the middle.
+
+#### 884. Uncommon Words from Two Sentences (hash table)
+
+- My solution
+
+Hash table: build two hash tables where key is word and value is count, then iterate through both of them, when `cnt == 1` and the word is not in another hash table, add this word to output.
+
+- Public solution
+
+Hash table: could merge into one hash table and just return the word with `cnt == 1`.
+
+#### 888. Fair Candy Swap (array)
+
+- My solution (**NO AC SOLUTION**)
+
+Similar to #1 Two Sum. The final size is `(sum(A) + sum(B)) / 2`. Then we just need to find `i` in `A` and `j` in `B` such that `sum(A) - i + j == (sum(A) + sum(B)) / 2`. But get TLE.
+
+- Public solution
+
+Use `j == i + (sum_B - sum_A) / 2` to search if `j` in `set(B)`, still get TLE if `set()` is not used.
+
+#### 896. Monotonic Array (array)
+
+- My solution
+
+Wrong attempt: iterate through array, use binary number to represent whether it's increasing or decreasing, then the sum of binary number should be either 0 or array size - 1. But binary representation cannot deal with equal case.
+
+AC: same method, denote 1 if `A[i + 1] > A[i]`, -1 if `A[i + 1] < A[i]`, 0 if `A[i + 1] == A[i]`. Then the number of non zero number should be equal to the sum of all number.
+
+- Public solution
+
+Use `increase` and `decrease`, set `increase = False` if there is `A[i + 1] > A[i]`, set `decrease = False` if there is `A[i] < A[i + 1]`. Then finally at least one of `increase` and `decrease` is True.
 
 #### 905. Sort Array By Parity (array)
 
