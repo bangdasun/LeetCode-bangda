@@ -159,6 +159,21 @@ Sort and take the middle number, since majority number is at least take half cou
 
 Brute Force; hash table; divide conquer; Boyer-Moore Voting algorithm
 
+#### 189. Rotate Array (array)
+
+- My solution
+
+Sliding array: increase the array multiple times (`k // n + 1`), then slicing last `k` to last `k + n`.
+
+- Public solution
+
+Reverse: reverse the whole list, then reverse the first `k` and last `k - n`.
+
+Extra array: use an extra array, the number at index `i` in the original array is placed at `i + k` right now. There is a trick use mod operation: `a[(i + k) % n] = nums[i]`.
+
+Cyclic Replacements: **TO BE CONTINUED**.
+
+
 #### 202. Happy Number (hash table, math)
 
 - My solution
@@ -182,6 +197,17 @@ Use a `isPrime()` function, then iterate through the list for `i` from 1 to `n`,
 Array: First assume all are prime, then update them since prime number cannot be divided by any number between 1 and itself. Use a array `isPrime` and each element correspond one number in `[0, n-1]`, initialize all as `True`, next start iterate from 2, if the value is `True`, then update all position at `j` times of it to be `False`; use a `count` to count the number of value to be `True`.
 
 Hash table: **NA**.
+
+#### 217. Contains Duplicate (array, hash table)
+
+- My solution
+
+Hash table: if the value in hash table keys, then return True; else add the value as key and store value 1. Return False in the end.
+
+- Public solution
+
+Sorting: same number will be consecutive.
+
 
 #### 219. Contains Duplicate II (array, hash table)
 
@@ -254,6 +280,19 @@ Sorting; Hash table.
 
 Binary search: but the range setting and terminate condition are a little tricky: since we can only see binary feedback, therefore it's possible `m` is the first bad version, then `right` should be `m` rather then `m-1`;   
 when `left` and `right` meet it will be the first bad version, we could simply check this by a size 2 input, and notice it is not necessary to be `m` now since `m` is from previous `left` and `right`.
+
+#### 283. Move Zeros (array, two pointers)
+
+- My solution
+
+Brute force: similar with bubble sort, if there is a zero, swap it with next non-zero elements.
+
+- Public solution
+
+Linear scan: save the `lastNonZeroIdx`, add non-zero values from beginning (`lastNonZeroIdx` initialized as 0), then assign 0 to the rest array (start from latest `lastNonZeroIdx`).
+
+Two pointers: set `curr` and `lastNonZeroIdx`, swap `lastNonZeroIdx` and `curr` values if `curr` is at non-zero values.
+
 
 #### 290. Word Pattern (hash table)
 
@@ -334,6 +373,26 @@ AC: same method, but also add a remark: if there is a odd number larger than 1. 
 
 Hash table: build a hash table based on count, iterate through and add by `(value // 2) * 2` each time. Then if there is a odd number, and the length is still even, increase the length by 1. (This will happen when meet the first odd number, second one the length is odd not even).
 
+#### 434. Number of Segments in a String (string)
+
+- My solution
+
+Linear scan: iterate through the string, and set 2 state variable `is_space` and `is_non_space` to indicate whether current pointer is in space characters or non space characters. If the state change from space (or at the beginning) to non space, add the count by 1. Return the count in the end.
+
+- Public solution
+
+Linear scan: same idea, but more clear - just find the first character of each segment (from beginning or from space), and update the count.
+
+#### 441. Arranging Coins (math, binary search)
+
+- My solution
+
+Math: the sum of `1+2+3+...+n` is `n * (n + 1) / 2`, then the answer `n` should satisfied `n * (n + 1) / 2 <= target < (n + 1) * (n + 2) / 2`.
+
+- Public solution
+
+**TO BE CONTINUED**.
+
 #### 557. Reverse Words in a String III (string)
 
 - My solution
@@ -362,6 +421,16 @@ Hash table, build a hash table based on shorter list, key is the name and value 
 No hash table: traverse over the various sum of index and determine if any such string exists in list 1 and list 2 such that the sum of its indices in the two lists equals sum (index could be negative, say it is invalid).
 
 Hash table: for every value in one list, search it in another list, if there is a match, store it into the hash table as key to be the sum of index and value to be the list of corresponding values.
+
+#### 605. Can Place Flowers (array)
+
+- My solution
+
+Min array: create `left` and `right` to store the closest non-empty position for each position. Then count the number of values larger than 1 with group by 0.
+
+- Public solution
+
+Simple scan: simply iterate through the array, if there the adjacent places are both empty, place it 1. Where the head and tail positions just need to check one place. The logic is a little tricky.
 
 #### 643. Maximum Average Subarray I (array)
 
@@ -423,11 +492,27 @@ Find the degree of the array at first (use hash table), also save the value with
 
 Two pointers (dictionary): define `slow` and `fast` hash table, `slow` is to record leftmost positions of all elements in array, `fast` is to record rightmost positions of all elements in array, then store the number and count in `dct` hash table. Next find the maximum value in `dct`, then for corresponding key (corresponding to key in `slow` and `fast`), calculate the minimum differences (`fast[k] - slow[k] + 1`).
 
+#### 704. Binary Search (binary search)
+
+- My solution
+
+Binary search.
+
 #### 709. To Lower Case (string)
 
 - My solution
 
 Hash table: build a hash table to map from upper case to lower case, then convert the string to list, iterate through the list and do the replacement if necessary, finally convert the list back to string.
+
+#### 724. Find Pivot Index (array)
+
+- My solution (**NO AC SOLUTION**)
+
+Cumulative sum: calculate left and right cumulative sum of the array, then iterate through two cumsum array, if there is a match, check whether they are valid (pivot index exist). But cannot deal with 0 answer case. (other corner case include: cumsum array is not monotonic increase, could decrease)
+
+- Public solution
+
+Prefix sum: calculate the left cumulative sum, and check if it equals right cumulative sum without value at current index. Need to calculate the sum of the array at first.
 
 #### 771. Jewels and Stones (hash table)
 
@@ -523,6 +608,17 @@ Linear scan: the first position that `A[i] > A[i + 1]` is the answer.
 
 Binary search: find the first position that `A[i] > A[i + 1]`.
 
+#### 859. Buddy Strings (string)
+
+- My solution (**NO AC SOLUTION**)
+
+Brute force: enumerate all pairs of values in `A`, swap them and check if it could get `B`, if not, need to be swap back. But takes too long to run.
+
+- Public solution
+
+Enumerate cases: if the result is True, then `A` and `B` only have two unmatched positions when `A[i] == B[j]`, `A[j] == B[i]` and `A[i] != A[j]` or `A == B` which means `A[i] == A[j]`. 
+
+
 #### 867. Transpose Matrix (array)
 
 - My solution
@@ -577,6 +673,17 @@ Use two array to store even and odd numbers, then concatenate them together and 
 
 In-place: similar with the idea of quick sort, use two pointers `i` and `j` start from left and end, ideally the number at left of `i` are all even, and number at right of `j` are all odd; if `A[i]` is even, increase it, if `A[j]` is odd, decrease it; if `A[i]` is odd and `A[j]` is even, swap them. Terminate iteration when `i` meet with `j`.
 
+
+#### 917. Reverse Only Letters (two pointers, stack)
+
+- My solution
+
+Two pointers: swap two letters pointed by two pointers `i`, `j` start from left and right, skip non-letters characters.
+
+- Public solution
+
+Stack: put all letters in a stack, then iterate through the string, if get a letter, then `pop()` the stack and append it to output; else, just append the character to output.
+
 #### X. Tips and Notice
 
 - Initialize iterate variable if use `while` loop.
@@ -590,5 +697,6 @@ In-place: similar with the idea of quick sort, use two pointers `i` and `j` star
 - Be careful for the condition in `while` loop.
 - Difference of the cumulative sum (of array) is the number itself. 
 - Be careful about variables defined in the loop, it is possible that the loop will not be executed, therefore will cause variable undefined error.
+- Be careful when assigning python list to another object, need to use copy of the list rather than list itself.
 
 
