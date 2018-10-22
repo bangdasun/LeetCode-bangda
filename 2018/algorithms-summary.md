@@ -77,13 +77,26 @@ Two pointers, no magic logic, careful about the update of the pointers (no plus 
 
 Binary search: check the middle point in the range of `[1, len(nums)//2]` and update the bound with middle value, use `while` loop, when `left > right` it will jump out, then check the current value at `,` with `target`, if smaller than `target`, put at `m`; else put at `m+1`.
 
+#### 53. Maximum Subarray (array, dynamic programming, divide conquer)
+
+- My solution (**NO AC SOLUTION**)
+
+Cumulative sum: get the cumulative sum of the array. The maximum subarray is the array has maximum difference in the cumulative sum array.
+
+- Public solution
+
+Dynamic programming 1 (Kadane's algorithm): if we know the maximum subarray sum end at position `i`, what is the maximum subarray sum end at `i + 1`? The answer is either the maximum subarray sum end at `i + 1`, or it doesn't. That's say, if the maximum subarray sum end at `i` is larger than 0, we should add `nums[i + 1]` into it, that gives the maximum subarray sum at `i + 1` is `max(nums[i + 1], nums[i + 1] + max_sum_end)`. Then we need to find the maximum value of it.
+
+Dynamic programming 2: if the previous element is larger than 0, current element is equal to current element + previous element; else the previous element is less or equal to 0, then ignore it, current element stay the same.
+
+
 #### 58. Length of Last Word (string)
 
 - My solution
 
 Find the position of last space, and index the string towards to that position, then split by space and return the length of the last string.
 
-- Public
+- Public solution
 
 Iterate from tail to head, if the current letter is not space, add 1 to the length ()  and continue; else if got a non-ending space (a new space), break the loop, finally return length.
 
@@ -264,7 +277,7 @@ Brute Force, iterate until the output is less than 10.
 
 Math property: `a * (10 ** n) % 9 == a % 9`, therefore just need to clarify difference cases for `a%9`. (Very **SMART** solution)
 
-#### 268. Missing Number (math)
+#### 268. Missing Number (array, math)
 
 - My solution
 
@@ -272,7 +285,7 @@ The length `n` array is expected to be the array with one element removed from 0
 
 - Public solution
 
-Sorting; Hash table.
+Sorting; Hash table; Bit manipulation.
 
 #### 278. First Bad Version (binary search)
 
