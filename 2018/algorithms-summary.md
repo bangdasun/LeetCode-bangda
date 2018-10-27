@@ -87,7 +87,7 @@ Cumulative sum: get the cumulative sum of the array. The maximum subarray is the
 
 Dynamic programming 1 (Kadane's algorithm): if we know the maximum subarray sum end at position `i`, what is the maximum subarray sum end at `i + 1`? The answer is either the maximum subarray sum end at `i + 1`, or it doesn't. That's say, if the maximum subarray sum end at `i` is larger than 0, we should add `nums[i + 1]` into it, that gives the maximum subarray sum at `i + 1` is `max(nums[i + 1], nums[i + 1] + max_sum_end)`. Then we need to find the maximum value of it.
 
-Dynamic programming 2: if the previous element is larger than 0, current element is equal to current element + previous element; else the previous element is less or equal to 0, then ignore it, current element stay the same.
+Dynamic programming 2: if the previous element is larger than 0, current element is equal to current element + previous element; else the previous element is less or equal to 0, then ignore it, current element stay the same. More detailed explanation [here](https://leetcode.com/problems/maximum-subarray/discuss/20396/Easy-Python-Way).
 
 
 #### 58. Length of Last Word (string)
@@ -140,11 +140,38 @@ Dynamic programming: current solution is from previous solution: `S(n) = S(n - 1
 
 Recursion with memorization: **TO BE CONTINUED**.
 
+#### 83. Remove Duplicates from Sorted List (linked list)
+
+- My solution
+
+Straight-forward: create `curr` and `temp` nodes to be `head` and `head.next` (first check condition), then iterate (while `temp` is not None) and keep move `temp` until it has different value with `curr`, then update `curr` and `temp`: `curr.next = temp`, `curr = curr.next`, `temp = curr.next`. And after loop set `curr.next = temp` since temp is already None.
+
+- Public solution
+
+Straight-forward: create `curr` node, while `curr` and `curr.next` are not None, update `curr` to remove duplicates: if `curr.val == curr.next.val`, then set `curr.next = curr.next.next`; else just move `curr` forward by 1.
+
+
+#### 88. Merge Sorted Array (array, two pointers)
+
+- My solution
+
+Two pointers: start from the back, sort the array from maximum to minimum. Need to check if `nums2` is empty in the end, if it's not, then all the rest element should be less than `nums1`, append it to the head of `nums1`.
+
 #### 125. Valid Palindrome (two pointers, string)
 
 - My solution
 
-Two pointers, notice the return condition and corner case (only one alphanumeric but could have other symbols).
+Two pointers: notice the return condition and corner case (only one alphanumeric but could have other symbols).
+
+#### 136. Single Number (hash table, bit manipulation)
+
+- My solution
+
+Hash table; Math.
+
+- Public solution
+
+Bit manipulation (**TO BE CONTINUED**).
 
 #### 141. Linked List Cycle (linked list, two pointers)
 
@@ -186,6 +213,11 @@ Extra array: use an extra array, the number at index `i` in the original array i
 
 Cyclic Replacements: **TO BE CONTINUED**.
 
+#### 198. House Robber (dynamic programming)
+
+- My solution
+
+Dynamic programming: since the robber cannot get the adjacent house, therefore at `i`th step, the money robber could have `m[i]` is `max(m[i - 2] + nums[i], m[i - 1])`. And `m[0] = nums[0]`, `m[1] = max(nums[0], nums[1])`.
 
 #### 202. Happy Number (hash table, math)
 
@@ -210,6 +242,15 @@ Use a `isPrime()` function, then iterate through the list for `i` from 1 to `n`,
 Array: First assume all are prime, then update them since prime number cannot be divided by any number between 1 and itself. Use a array `isPrime` and each element correspond one number in `[0, n-1]`, initialize all as `True`, next start iterate from 2, if the value is `True`, then update all position at `j` times of it to be `False`; use a `count` to count the number of value to be `True`.
 
 Hash table: **NA**.
+
+
+#### 205. Isomorphic Strings (hash table)
+
+- My solution
+
+Wrong attempt: create a hash table to map from `s` to `t`, if the key is in the hash table, then check if the value in `t` is equal to the value with that key, if not return False. Return True in the end. But this didn't check the case that multiple key map to same value.
+
+AC: also check if the value is in hash table values, if it is in, while the key is not in hash table, then return False. Or use two hash tables to map from `s` to `t`, and reverse relation should be same as mapping from `t` to `s`.
 
 #### 217. Contains Duplicate (array, hash table)
 
@@ -405,6 +446,33 @@ Math: the sum of `1+2+3+...+n` is `n * (n + 1) / 2`, then the answer `n` should 
 - Public solution
 
 **TO BE CONTINUED**.
+
+#### 448. Find All Numbers Disappeared in an Array (array)
+
+- My solution (**NO AC SOLUTION**)
+
+- Public solution
+
+Value as index: really tricky! A valid array contains unique value from 1 to `n` with length `n`. So there is a one-to-one relation between index and value. The missing number will corresponding to missing index. Iterate through the array, convert the value to index (`idx = val - 1`), then set the value at this index to be negative. Since there are duplicate values, need to add `abs()` to make sure it's always negative. Then the missing index will still have positive value, find them!
+
+
+#### 459. Repeated Substring Pattern (string)
+
+- My solution (**NO AC SOLUTION**)
+
+Sliding: move the first character to the end, until to the middle, if there is a match between old and new string, return True. Return False in the end. But get TLE.
+
+- Public solution
+
+Sliding: less operation. Just check position at `length % i == 0`, and use slicing and concatenate to compare the old and new.
+
+One line: check if string `s` is the substring of `(s + s)[1:-1]`.
+
+#### 485. Max Consecutive Ones (string)
+
+- My solution
+
+Linear scan: create `cnt` as 0, if current number is 1, then increase it by 1; else reset it as 0. Return the maximum `cnt`.
 
 #### 557. Reverse Words in a String III (string)
 
