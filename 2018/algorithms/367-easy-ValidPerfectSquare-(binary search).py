@@ -14,7 +14,7 @@ class Solution:
             if sq > num:
                 right = mid - 1
             elif sq < num:
-                left = mid
+                left = mid + 1
             else:
                 return True
         
