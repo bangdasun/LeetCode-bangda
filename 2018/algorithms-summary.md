@@ -308,6 +308,18 @@ Try to reverse the linked list chain, and compare the old head and new head.
 
 Use two pointers: fast pointer and slow pointer, run through the linked list where **fast is twice faster than slow, then when fast is at end, slow is at the middle. Need to write a reverse function, then reverse at slow, it will return the second half of the linked list chain, then compare this with the head**.
 
+#### 242. Valid Anagram (hash table, sort)
+
+- My solution
+
+Wrong attempt: hash table, build a hash table with key to be letter and value to be count based on `s`, then reduce the count based on `t`. But it's possible that the hash table still exist non-zero count letters (means `s` is longer than `t`).
+
+AC: check the hash table again, return False if there is a non-zero count value.
+
+- Public solution
+
+Sort.
+
 #### 258. Add Digits (math)
 
 - My solution
@@ -441,7 +453,7 @@ Linear scan: same idea, but more clear - just find the first character of each s
 
 - My solution
 
-Math: the sum of `1+2+3+...+n` is `n * (n + 1) / 2`, then the answer `n` should satisfied `n * (n + 1) / 2 <= target < (n + 1) * (n + 2) / 2`.
+Math: the sum of `1 + 2 + 3 + ... + n` is `n * (n + 1) / 2`, then the answer `n` should satisfied `n * (n + 1) / 2 <= target < (n + 1) * (n + 2) / 2`.
 
 - Public solution
 
@@ -468,11 +480,51 @@ Sliding: less operation. Just check position at `length % i == 0`, and use slici
 
 One line: check if string `s` is the substring of `(s + s)[1:-1]`.
 
+#### 476. Number Complement (bit manipulation)
+
+- My solution
+
+Math: direct convert number to binary representation and flip, then convert back.
+
+- Public solution
+
+Bit manipulation: **TO BE CONTINUED**.
+
 #### 485. Max Consecutive Ones (string)
 
 - My solution
 
 Linear scan: create `cnt` as 0, if current number is 1, then increase it by 1; else reset it as 0. Return the maximum `cnt`.
+
+#### 504. Base 7 (math, string)
+
+- My solution (**NO AC SOLUTION**)
+
+Iterative: update `num` to be `num // 7` while `abs(num) >= 7`, before this, save `num % 7`, append it to output. Finally append `num`. But the answer is wrong for negative number. Correct results example: 8 and -8 should have same base 7 results except the negative sign, `(8)(7) = 11 = (1) * (7) ** 1 + (1) * (7) ** 0`, `(-8)(7) = -11 = (-1) * (7) ** 1 - 1 * (7) ** 0`. **NEGATIVE NUMBER MOD OPERATION AND BASE n RESULTS**.
+
+- Public solution
+
+Iterative: just take care of the sign, append `-` in front of the results if `num < 0`.
+
+Recursion: **TO BE CONTINUED**.
+
+#### 507. Perfect Number (math)
+
+- My solution (**NO AC SOLUTION**)
+
+Brute force: iterate from 2 to `num // 2 + 1`, add all divisors. But get TLE.
+
+- Public solution
+
+Optimal brute force: iterate from 2 to `sqrt(num)`.
+
+Euclid - Euler Theorem: **TO BE CONTINUED**.
+
+#### 520. Detect Capital (string)
+
+- My solution
+
+Count capitals: if the number of capitals is 0 or the length of the string or 1 where the first one is capital, return True.
 
 #### 557. Reverse Words in a String III (string)
 
@@ -513,6 +565,26 @@ Min array: create `left` and `right` to store the closest non-empty position for
 
 Simple scan: simply iterate through the array, if there the adjacent places are both empty, place it 1. Where the head and tail positions just need to check one place. The logic is a little tricky.
 
+#### 628. Maximum Product of Three Numbers (array, math)
+
+- My solution
+
+Sorting and math: sort the array first, the solution is the either `min_1 * min_2 * max_1` or `max_3 * max_2 * max_1`. (More details **TO BE CONTINUED**)
+
+- Public solution
+
+Linear scan: can use linear scan to find `min_1`, `min_2`, `max_3`, `max_2`, `max_1`. (More details **TO BE CONTINUED**)
+
+#### 633. Sum of Square Numbers (math)
+
+- My solution (**NO AC SOLUTION**)
+
+Brute force + binary search: iterate from 1 to `c // 2` as `a`, then check if `c - a * a` is a perfect square number like #367 (use binary search). But get TLE.
+
+- Public solution
+
+Fermat theorem: **TO BE CONTINUED**.
+
 #### 643. Maximum Average Subarray I (array)
 
 - My solution (**NO AC SOLUTION**)
@@ -524,6 +596,18 @@ Brute force: calculate the sum of the sliding window, and update the maximum if 
 Cumulative sum: create a `cumsum` array, then the difference of `i`th value and `i+k`th value of the array is exactly the sum of subarray in the raw array. The difference is initialized as `k`th value in the `cumsum` array. 
 
 Brute force (same as my sliding window): but use smarter method, just update the current maximum by add the difference of value to be removed and to be added.
+
+#### 645. Set Mismatch (hash table, math)
+
+- My solution
+
+Math: use `set()` to get the unique array, the duplicate number is the difference of sum of `nums` and sum of `set(nums)`; the missing number is the difference of sum of `set(nums)` and sum from 1 to `len(nums)`.
+
+Value as index + hash table: see #448. This method can find the missing number, but fail to find the duplicate number. Use hash table to find the duplicate one.
+
+- Public solution
+
+Brute force; Sorting (find duplicate number); Hash table (with 2 extensions);  XOR.
 
 #### 657. Robot Return to Origin (string)
 
@@ -594,6 +678,18 @@ Cumulative sum: calculate left and right cumulative sum of the array, then itera
 - Public solution
 
 Prefix sum: calculate the left cumulative sum, and check if it equals right cumulative sum without value at current index. Need to calculate the sum of the array at first.
+
+#### 747. Largest Number At Least Twice of Others (array)
+
+- My solution
+
+Wrong attempt: find the 1st max first and save the index, then remove it from the array, then the max of the array is the 2nd max of the original array, then compare them. But it's possible that this 2nd max doesn't exist, the array is empty.
+
+AC: check if the array after removing 1st max is empty, fill 0 if it's empty.
+
+- Public solution
+
+Linear scan: same with my approach, but after find the 1st max, do a second iteration, use `val != nums_max` to find the 2nd max, if there is a `val` that `nums_max < 2 * val`, return -1.
 
 #### 771. Jewels and Stones (hash table)
 
