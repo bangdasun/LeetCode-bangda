@@ -25,6 +25,17 @@ Use two pointers, check if the value they point to are same during the iteration
 
 Use divide and mode operation to get the half of the number.
 
+#### 11. Container With Most Water (array, two pointers)
+
+- My solution (**NO AC SOLUTION**)
+
+Brute force: the area is `min(h[i], h[j]) * (j - i)`, therefore a double for loop could find the solution. But get TLE.
+
+- Public solution
+
+Two pointers: start from the begin and end, and the area is determined by the shorter boundary. Therefore to search potential solution, need to update the current shorter boundary.
+
+
 #### 14. Longest Common Prefix (string)
 
 - My solution
@@ -140,6 +151,8 @@ Dynamic programming: current solution is from previous solution: `S(n) = S(n - 1
 
 Recursion with memorization: **TO BE CONTINUED**.
 
+Fibonacci number: **TO BE CONTINUED**.
+
 #### 83. Remove Duplicates from Sorted List (linked list)
 
 - My solution
@@ -182,6 +195,16 @@ Two pointers, if the faster one is found behind the lower one, then it is cyclic
 - Public Solution:
 
 Hash table, if current node is in hash table, then it is cyclic.
+
+#### 153. Find Minimum in Rotated Sorted Array (array, binary search)
+
+- My solution
+
+Linear scan: return the first number that smaller than `nums[0]`.
+
+- Public solution
+
+Binary search: find the number that `nums[i - 1] > nums[i]`. Therefore, take the mid point `mid = (left + right) // 2`, if `nums[0] < nums[mid]`, then this number must at the right, update the range, set `left = mid + 1`; otherwise update the `right`. Could add condition to check `nums[mid + 1]` and `nums[mid - 1]`, if `nums[mid + 1] < nums[mid]`, then `nums[mid + 1]` is the smallest number, same for `nums[mid - 1] > nums[mid]`: `nums[mid]` will be the smallest.
 
 #### 167. Two Sum II (array, two pointers, binary search)
 
@@ -251,6 +274,16 @@ Hash table: **NA**.
 Wrong attempt: create a hash table to map from `s` to `t`, if the key is in the hash table, then check if the value in `t` is equal to the value with that key, if not return False. Return True in the end. But this didn't check the case that multiple key map to same value.
 
 AC: also check if the value is in hash table values, if it is in, while the key is not in hash table, then return False. Or use two hash tables to map from `s` to `t`, and reverse relation should be same as mapping from `t` to `s`.
+
+#### 206. Reverse Linked List (linked list)
+
+- My solution
+
+Iterative: see #234.
+
+- Public solution
+
+Recursion: **TO BE CONTINUED**.
 
 #### 217. Contains Duplicate (array, hash table)
 
@@ -359,6 +392,20 @@ Linear scan: save the `lastNonZeroIdx`, add non-zero values from beginning (`las
 
 Two pointers: set `curr` and `lastNonZeroIdx`, swap `lastNonZeroIdx` and `curr` values if `curr` is at non-zero values.
 
+More optimal solutions, check the problem [link](https://leetcode.com/problems/move-zeroes/).
+
+#### 287. Find the Duplicate Number (array, binary search, two pointers)
+
+- My solution
+
+Cannot find good solution.
+
+Sorting; Hash table.
+
+- Public solution
+
+Floyd's Tortoise and Hare (Cycle Detection), **TO BE CONTINUED**.
+
 
 #### 290. Word Pattern (hash table)
 
@@ -459,6 +506,12 @@ Math: the sum of `1 + 2 + 3 + ... + n` is `n * (n + 1) / 2`, then the answer `n`
 
 **TO BE CONTINUED**.
 
+#### 442. Find All Duplicates in an Array (array)
+
+- My solution
+
+Value as index: very similar with #448, just need to save the index when get negative values in scanning.
+
 #### 448. Find All Numbers Disappeared in an Array (array)
 
 - My solution (**NO AC SOLUTION**)
@@ -526,6 +579,18 @@ Euclid - Euler Theorem: **TO BE CONTINUED**.
 
 Count capitals: if the number of capitals is 0 or the length of the string or 1 where the first one is capital, return True.
 
+#### 551. Student Attendance Record I (string)
+
+- My solution
+
+Wrong attempt: count `A` and consistence of `L`. But when get a `L`, just increase count by 1 if next is also `L`. This make the count less than actual answer.
+
+AC: use a list to store count of consistence of `L`. Update rule is a little complicated (reset and save).
+
+- Public solution
+
+Linear scan: same with my idea, but better time complexity: if get `A`, return False; if get more then 2 consistent `L`, return False.
+
 #### 557. Reverse Words in a String III (string)
 
 - My solution
@@ -540,7 +605,7 @@ Sorting: make a copy of `nums` and sort it. Then compare two arrays using 2 loop
 
 - Public solution
 
-**TO BE CONTINUED**.
+Sorting; Stack; In-place. **TO BE CONTINUED**.
 
 
 #### 599. Minimum Index Sum of Two Lists (hash table)
@@ -646,6 +711,8 @@ Brute force: check if `B` is in `A * k`, where `k` will be the output. The edge 
 - Public solution
 
 Ad-hoc: same with my idea. But calculate `q` then `len(B) <= len(A * q)`. `q = (len(B) - 1) // len(A) + 1`, and if the answer is not -1, then `B` must be in `A * q` or `A * (q + 1)`.
+
+Robin-Karp algorithm (rolling hash): **TO BE CONTINUED**.
 
 #### 697. Degree of an Array (array)
 
@@ -773,7 +840,9 @@ Two array: use two array to store the leftmost position of 0's and rightmost pos
 
 Next array: Let `left[i]` to be the distance of seat `i` to the closest person sitting to left of `i`, same with `right[i]`. Then the distance to closest person when seating at `i` is `min(left[i], right[i])`. The `max(min(left[i], right[i]))` is the answer.
 
-Two Pointers: **TO BE CONTINUED**
+Two pointers: **TO BE CONTINUED**.
+
+Group by zeros: **TO BE CONTINUED**.
 
 #### 852. Peak Index in a Mountain Array (array)
 
@@ -840,6 +909,8 @@ AC: same method, denote 1 if `A[i + 1] > A[i]`, -1 if `A[i + 1] < A[i]`, 0 if `A
 
 Use `increase` and `decrease`, set `increase = False` if there is `A[i + 1] > A[i]`, set `decrease = False` if there is `A[i] < A[i + 1]`. Then finally at least one of `increase` and `decrease` is True.
 
+Two pass and one pass (**TO BE CONTINUED**).
+
 #### 905. Sort Array By Parity (array)
 
 - My solution
@@ -850,6 +921,7 @@ Use two array to store even and odd numbers, then concatenate them together and 
 
 In-place: similar with the idea of quick sort, use two pointers `i` and `j` start from left and end, ideally the number at left of `i` are all even, and number at right of `j` are all odd; if `A[i]` is even, increase it, if `A[j]` is odd, decrease it; if `A[i]` is odd and `A[j]` is even, swap them. Terminate iteration when `i` meet with `j`.
 
+Two pass: **TO BE CONTINUED**.
 
 #### 917. Reverse Only Letters (two pointers, stack)
 
@@ -860,6 +932,8 @@ Two pointers: swap two letters pointed by two pointers `i`, `j` start from left 
 - Public solution
 
 Stack: put all letters in a stack, then iterate through the string, if get a letter, then `pop()` the stack and append it to output; else, just append the character to output.
+
+Reverse pointer.
 
 #### X. Tips and Notice
 
