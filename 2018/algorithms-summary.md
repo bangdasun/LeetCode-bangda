@@ -15,6 +15,18 @@ Brute force: iterate through the array, and search the `diff` in the rest array 
 
 Hash table: 1) need a more efficient way to check if `diff` in the array, use hash table to improve - first iterate through the array and create the hash table, then iterate the array again check if `diff` is in the hash table, where `diff`'s index cannot equal to current value index; 2) same with my AC solution.
 
+#### 3. Longest Substring Without Repeating Characters (string, hash table, two pointers)
+
+- My solution (**NO AC SOLUTION**)
+
+Brute force: get all the substring, if the number of unique string equal to the length of the substring, then this is a valid substring. But get TLE.
+
+- Public solution
+
+Sliding window hash table: same idea with one of my unsuccessful trial - use `slow` and `fast` pointers, build a hash table for substring from `slow` to `fast`, if character at`fast` is not in the hash table, update the hash table, and the length of the substring is the number of keys of the hash table. The difference is when get a duplicate, just delete is `slow` pointer.
+
+Optimized sliding window hash table: **TO BE CONTINUED**.
+
 #### 9. Palindrome Number (math)
 
 - My solution
@@ -87,6 +99,16 @@ Two pointers, no magic logic, careful about the update of the pointers (no plus 
 - My solution
 
 Binary search: check the middle point in the range of `[1, len(nums)//2]` and update the bound with middle value, use `while` loop, when `left > right` it will jump out, then check the current value at `,` with `target`, if smaller than `target`, put at `m`; else put at `m+1`.
+
+#### 49. Group Anagrams (hash table, string)
+
+- My solution (**NO AC SOLUTION**)
+
+Hash table: anagrams have same hash table (character as key, count as value). But `dictionary` in python cannot directly as key for another `dictonary`. And sort the string will get TLE.
+
+- Public solution
+
+Categorize by sorted string, categorized by count, all use `collections.defaultdict()`.
 
 #### 53. Maximum Subarray (array, dynamic programming, divide conquer)
 
@@ -784,6 +806,12 @@ KMP algorithm: **TO BE CONTINUED**.
 
 Hash table: build a map between letters and codes. Then for each letter in each word in the list, store the transformed codes in a list, finally count the number of unique transformed codes in the list.
 
+#### 819. Most Common Word (string)
+
+- My solution
+
+Hash table:  first process the string, replace non alpha characters (`.isalpha()`) with space and take lowercase if `.isupper()` is True. Then `.split()` the processed string, iterate through it, if the word is not banned, count it, update the output if the count is larger than `max_count` (initialized as 0).
+
 #### 821. Shortest Distance to a Character (array)
 
 - My solution
@@ -949,5 +977,4 @@ Reverse pointer.
 - Difference of the cumulative sum (of array) is the number itself. 
 - Be careful about variables defined in the loop, it is possible that the loop will not be executed, therefore will cause variable undefined error.
 - Be careful when assigning python list to another object, need to use copy of the list rather than list itself.
-
-
+- Sliding window algorithm template for substring problems: [template](https://leetcode.com/problems/find-all-anagrams-in-a-string/discuss/92007/Sliding-Window-algorithm-template-to-solve-all-the-Leetcode-substring-search-problem.) by [ChaoyangHe](https://leetcode.com/chaoyanghe/).
