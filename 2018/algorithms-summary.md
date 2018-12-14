@@ -228,6 +228,16 @@ Linear scan: return the first number that smaller than `nums[0]`.
 
 Binary search: find the number that `nums[i - 1] > nums[i]`. Therefore, take the mid point `mid = (left + right) // 2`, if `nums[0] < nums[mid]`, then this number must at the right, update the range, set `left = mid + 1`; otherwise update the `right`. Could add condition to check `nums[mid + 1]` and `nums[mid - 1]`, if `nums[mid + 1] < nums[mid]`, then `nums[mid + 1]` is the smallest number, same for `nums[mid - 1] > nums[mid]`: `nums[mid]` will be the smallest.
 
+#### 162. Find Peak Element (array, binary search)
+
+- My solution
+
+Linear scan: append `float('-inf')` at the head and tail position of the list, then linear scan the array to find the element larger than its adjacent elements.
+
+-  Public solution
+
+Binary search: could find the global maximum with `O(log n)`.
+
 #### 167. Two Sum II (array, two pointers, binary search)
 
 - My solution
@@ -243,6 +253,13 @@ Sort and take the middle number, since majority number is at least take half cou
 - Public solution
 
 Brute Force; hash table; divide conquer; Boyer-Moore Voting algorithm
+
+#### 172. Factorial Trailing Zeros (math)
+
+- My solution (**NO AC SOLUTION**)
+- Public solution
+
+Math property: the number of trailing zeros is the number of 10 got from factorizing the number; then 10 could be factorized as 2 and 5, the problem becomes how many 2x5 in the factorization. Since there will be too many 2 during factorization, count the number of 5 will get the solution.
 
 #### 189. Rotate Array (array)
 
@@ -263,6 +280,12 @@ Cyclic Replacements: **TO BE CONTINUED**.
 - My solution
 
 Dynamic programming: since the robber cannot get the adjacent house, therefore at `i`th step, the money robber could have `m[i]` is `max(m[i - 2] + nums[i], m[i - 1])`. And `m[0] = nums[0]`, `m[1] = max(nums[0], nums[1])`.
+
+#### 200. Number of Islands (BFS, DFS, union find)
+
+- My solution
+
+DFS: refer from http://www.cnblogs.com/grandyang/p/4402656.html
 
 #### 202. Happy Number (hash table, math)
 
@@ -554,6 +577,12 @@ Sliding: move the first character to the end, until to the middle, if there is a
 Sliding: less operation. Just check position at `length % i == 0`, and use slicing and concatenate to compare the old and new.
 
 One line: check if string `s` is the substring of `(s + s)[1:-1]`.
+
+#### 463. Island Perimeter (hash table)
+
+- My solution (**NO AC SOLUTION**)
+
+Linear scan: refer from http://www.cnblogs.com/grandyang/p/6096138.html
 
 #### 476. Number Complement (bit manipulation)
 
@@ -978,3 +1007,5 @@ Reverse pointer.
 - Be careful about variables defined in the loop, it is possible that the loop will not be executed, therefore will cause variable undefined error.
 - Be careful when assigning python list to another object, need to use copy of the list rather than list itself.
 - Sliding window algorithm template for substring problems: [template](https://leetcode.com/problems/find-all-anagrams-in-a-string/discuss/92007/Sliding-Window-algorithm-template-to-solve-all-the-Leetcode-substring-search-problem.) by [ChaoyangHe](https://leetcode.com/chaoyanghe/).
+- Usage of built-in packages of Python like `collections`, `itertools`.
+- Don't use `[[0] * c] * r` to create 2D Python array, `*` will create copy. Use list comprehension instead: `[[0 for i in range(c)] for j in range(r)]`.
