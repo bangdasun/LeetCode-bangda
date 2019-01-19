@@ -15,7 +15,7 @@ Sub-query: query from sub-query where the 1st highest salary is returned - filte
 
 - Public solution
 
-`LIMIT` and `OFFSET`; `IFULL()`.
+`LIMIT` and `OFFSET`; `IFNULL()`.
 
 #### 178. Rank Scores
 
@@ -68,7 +68,7 @@ Delete from self join table.
 - My solution (**NO AC SOLUTION**)
 - Public solution
 
-`SUBDATE()` and `DATEDIFF()`.
+`SUBDATE()` and `DATEDIFF()`, the result of date function as the condition for join.
 
 #### 595. Big Countries
 
