@@ -192,6 +192,38 @@ Straight-forward: create `curr` node, while `curr` and `curr.next` are not None,
 
 Two pointers: start from the back, sort the array from maximum to minimum. Need to check if `nums2` is empty in the end, if it's not, then all the rest element should be less than `nums1`, append it to the head of `nums1`.
 
+#### 100. Same Tree (tree, DFS)
+
+- My solution
+
+Recursion: `p` and `q` will be same if and only if `p` and `q` are both empty tree or the current node values are same, if their current values are same then go check their left and right child branches.
+
+#### 110. Balanced Binary Tree
+
+- My solution 
+
+Wrong attempt: Depth calculation. First define the method to calculate tree depth recursively, then check the depth difference between the left and right child branch of `root`. But need to check every node!
+
+AC: Recursion + depth calculation. Also need to check the depth differences, but for every node with recursion.
+
+- Public solution
+
+`O(n)` solution: <https://leetcode.com/problems/balanced-binary-tree/discuss/157645/Python-Tree-tm>
+
+#### 111. Minimum Depth of Binary Tree (tree, DFS, BFS)
+
+- My solution
+
+Wrong attempt: Recursion. Base case is `root` is None, then return 0; otherwise return `1 + min(left_depth, right_depth)`. This failes for case that the `root` only has one leaf, this should count as 2 rather than 1.
+
+AC: Recursion. If either `left_depth` or `right_depth` is 0, then should return `1 + max(left_depth, right_depth)`, otherwise return `1 + min(left_depth, right_depth)`.
+
+#### 112. Path Sum (tree, DFS)
+
+- My solution
+
+Recursion: if the current node is leaf node, then return `node.val == sum`; else if the current node is `None` then return False; else run recursively on left child branch and right child branch.
+
 #### 125. Valid Palindrome (two pointers, string)
 
 - My solution
@@ -361,6 +393,16 @@ Two queues: opposite to my solution, the `pop()` takes `O(n)` and `push()` takes
 
 One queue: the `pop()` takes `O(1)` and `push()` takes `O(n)`. When `push()`, `dequeue()` all elements except the last one, each `dequeue()` is followed by `enqueue()`, then the original last element will be at the top of the 'stack'.
 
+#### 226. Invert Binary Tree (tree)
+
+- My solution
+
+  Recursion: base case are leaf node or `None`; then swap left and right child branches of the `root` node, and call itself on left child branch and right child branch.
+
+- Public solution
+
+  Iterative. Use `queue` structure.
+
 
 #### 232. Implement Queue using Stacks (stack, design)
 
@@ -518,6 +560,14 @@ Hash table, store the count of the letter, then iterate through the string, when
 Wrong attempt: build a hash table based on `s`, then iterate through `t` to check if every letter is in the hash table. But it's possible that the extra letter is a duplicate letter in `s`.
 
 AC: same methods, but save the value of hash table as count, if letter in `t` also in hash table, check the count is larger than 0: if yes, reduce the count by 1, if no, then this is the extra letter.
+
+#### 404. Sum of Left Leaves (tree)
+
+- My solution:
+
+Wrong attempt: Recursion. Return 0 if `root` is `None` or leaf, then return the sum of `root.left.val`  and function call on `root.left` and `root.right`. But this also count the left non-leaves nodes because leaves values are all included.
+
+AC: Recursion. Return 0 if `root` is None. Then check if the node is a left leaf by `root.left.left` and `root.left.right`  (all should be `None`), if it's True then return the sum of `root.left.val` and function call on `root.right`, otherwise return the sum of function call on `root.left` and `root.right`.
 
 #### 409. Longest Palindrome (hash table)
 
