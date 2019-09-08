@@ -5,6 +5,7 @@
 #         self.left = None
 #         self.right = None
 
+# BFS
 class Solution:
     def kthSmallest(self, root: TreeNode, k: int) -> int:
         output = []
@@ -23,7 +24,7 @@ class Solution:
         
         return sorted(output)[k-1]
 		
-
+# DFS - inorder traverse + extra space
 class Solution:
     def inorderTraverse(self, root):
         if root is None:
@@ -37,3 +38,26 @@ class Solution:
     def kthSmallest(self, root: TreeNode, k: int) -> int:
         output = self.inorderTraverse(root)
         return output[k-1]
+
+# DFS - inorder traverse + no extra space
+class Solution:
+    def inorderTraverse(self, root, k):
+        if root is None:
+            return None
+        
+        self.inorderTraverse(root.left, k)
+        self.index += 1
+        if self.index == k:
+            self.kth = root.val
+            
+        if self.index < k:
+            self.inorderTraverse(root.right, k)
+        
+    def kthSmallest(self, root: TreeNode, k: int) -> int:
+        if root is None:
+            return None
+        
+        self.index = 0
+        self.kth = root.val
+        self.inorderTraverse(root, k)
+        return self.kth
