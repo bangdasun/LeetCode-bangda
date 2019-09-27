@@ -25,7 +25,8 @@ class Solution:
                     queue.append(node.left)
                 if node.right is not None:
                     queue.append(node.right)
-        
+			
+			# connect nodes (linked list)
             for i in range(len(level) - 1):
                 node_prev = level[i]
                 node_next = level[i+1]

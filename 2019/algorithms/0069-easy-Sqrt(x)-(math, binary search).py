@@ -18,3 +18,28 @@ class Solution:
                 return m
         
         return (left + right) // 2
+
+class Solution:
+    def mySqrt(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        if x < 2:
+            return x
+        
+        start, end = 0, x - 1
+        
+        while start + 1 < end:
+            mid = (start + end) // 2
+            if mid * mid < x:
+                start = mid
+            elif mid * mid == x:
+                end = mid
+            else:
+                end = mid
+        
+        if end * end <= x:
+            return end
+        
+        return start

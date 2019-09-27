@@ -39,3 +39,41 @@ class Solution:
             
         return 0
  
+ # better TLE solution ... (pass one more test)
+ class Solution:
+    def countCommonLetters(self, wordA, wordB):
+        n = len(wordA)
+        count = 0
+        for i in range(n):
+            if wordA[i] == wordB[i]:
+                count += 1
+        return count
+        
+    def getNextWords(self, beginWord, wordList, visited):
+        next_words = []
+        n = len(beginWord)
+        for w in wordList:
+            if w in visited:
+                continue
+            if self.countCommonLetters(beginWord, w) != n - 1:
+                continue
+            next_words.append(w)
+        return next_words
+        
+    def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
+        queue = deque([beginWord])
+        visited = set([beginWord])
+        distance = 1
+        
+        while len(queue) > 0:
+            for _ in range(len(queue)):
+                word = queue.popleft()
+                for next_word in self.getNextWords(word, wordList, visited):
+                    if next_word == endWord:
+                        return distance + 1
+                    queue.append(next_word)
+                    visited.add(next_word)
+            distance += 1
+            
+        return 0
+		

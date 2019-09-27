@@ -21,15 +21,14 @@ class Solution:
         if head is None or head.next is None:
             return head
         
+        # 1. create new_head
         new_head = None
         while head is not None:
-            # save head.next
+            # 2. save head.next as tmp node
             head_next = head.next
-            
-            # update
-            # 1. connect
+            # 3. connect head to new_head (reverse)
             head.next = new_head
-            # 2. move
+            # 4. update
             new_head = head
             head = head_next
         

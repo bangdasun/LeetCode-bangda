@@ -34,7 +34,7 @@ class Solution:
         first_half_node = head
         
         # first and second half have same node, second half should stop before it
-		# second half will be longer than first half by 1 if length is odd number
+        # second half will be longer than first half by 1 if length is odd number
         while second_half_head.next is not None and first_half_node is not None:
             first_half_node_next = first_half_node.next
             second_half_head_next = second_half_head.next
@@ -46,3 +46,4 @@ class Solution:
             second_half_head = second_half_head_next
         
         return None
+ 
